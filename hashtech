@@ -1,0 +1,116 @@
+PUT /navinraajan
+{
+  "mappings": {
+    "properties": {
+      "EmployeeID": { "type": "keyword" },
+      "Department": { "type": "text" },
+      "Gender": { "type": "text" }
+    }
+  }
+}
+
+PUT /8825
+{
+  "mappings": {
+    "properties": {
+      "EmployeeID": { "type": "keyword" },
+      "Department": { "type": "text" },
+      "Gender": { "type": "text" }
+    }
+  }
+}
+GET /_cat/indices?v
+
+GET /navinraajan/_count
+
+POST /navinraajan/_doc/E02003
+{
+  "EmployeeID": "E02003",
+  "Department": "IT",
+  "Gender": "Male"
+}
+POST /navinraajan/_doc/E02004
+{
+  "EmployeeID": "E02004",
+  "Department": "CSE",
+  "Gender": "Male"
+}
+
+POST /8825/_doc/E02003
+{
+  "EmployeeID": "E02003",
+  "Department": "IT",
+  "Gender": "Female"
+}
+POST /8825/_doc/E02004
+{
+  "EmployeeID": "E02003",
+  "Department": "MECH",
+  "Gender": "Female"
+}
+GET /navinraajan/_count
+GET /8825/_count
+
+
+DELETE /navinraajan/_doc/E02003
+
+GET /navinraajan/_count
+
+GET /navinraajan/_search
+{
+  "query": {
+    "match": {
+      "Department": "IT"
+    }
+  }
+}
+
+
+GET /hash_8825_v/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /navinraajan/_search
+{
+  "query": {
+    "match": {
+      "Gender": "Male"
+    }
+  }
+}
+GET /8825/_search
+{
+  "query": {
+    "match": {
+      "Department": "IT"
+    }
+  }
+}
+
+GET /navinraajan/_search
+{
+  "size": 10, 
+  "aggs": {
+    "department_counts": {
+      "terms": {
+        "field": "Department.keyword" 
+      }
+    }
+  }
+}
+
+GET /8825/_search
+{
+  "size": 10, 
+  "aggs": {
+    "department_counts": {
+      "terms": {
+        "field": "Department.keyword" 
+      }
+    }
+  }
+}
+  
